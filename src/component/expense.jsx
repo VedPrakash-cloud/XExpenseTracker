@@ -1,55 +1,77 @@
 import {useState} from 'react';
-import ExpenseCard from './expensecard';
+import Modal from 'react-modal';
 
 
-export default function ExpenseTracker({card}) {
-    const[balance, setBalance] = useState(5000);
-    const [showBalance, setShowBalance] = useState(false);
-    const [inputAmount, setInputAmount] = useState(0);
+Modal.setAppElement('#root');
+export default function ExpenseCard({expense, onAddExpense}){
+  const [inputAmount, setInputAmount] = useState('');
+  const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('');
+  const [date, setDate] = useState('')
+  const [showModal, setShowModal] =useState(null);
 
-    const handleWalletBalance=()=>{
-        setBalance((prev)=>parseFloat((prev+inputAmount).toFixed(2)));
-        setShowBalance(false);
-    }
-    console.log(inputAmount);
+  const handleClick = (e)=>{
+    e.preventDefault()
+    if(!inputAmount || !title || !category || !date) return;
 
-    const handleclick =()=>{
-      setShowBalance(true);
-    }
+    onAddExpense({
+      title,
+      amount: Number(inputAmount),
+      category,
+      date,
+    })
+    setTitle('');
+    setCategory('');
+    setDate('');
+    setInputAmount('');
+    setShowModal(null);
+  }
 
-    const handleCancel = ()=>{
-      setShowBalance(false);
-    }
+  const totalExpense = expense.reduce((sum,item)=> sum + item.amount, 0);
 
 
   return (
     <div>
-      <h1 className="flex text-white text-2xl font-bold">Expense Tracker</h1>
-      <div>
-        <div className='flex gap-5 mt-10'>
-          <div className='w-96 bg-[#9B9B9B] rounded-md flex flex-col place-content-center'>
-            <h1 className="text-2xl text-white">Wallet Balance: <span className='text-lime-400 decoration-lime-500 font-bold'> ₹{balance}</span></h1>
-            <div>
-              <button type='button' onClick={handleclick} className="bg-green-300 rounded-2xl bg-gradient-to-r from-lime-200 via-lime-500 to-green-600 py-[8px] px-5 text-white text-xl mt-[10px]">
-                + Add Income
-                </button>
-            </div>
-          </div>
-          {showBalance && (
-            <div className='flex flex-col gap-5 bg-gray-300 rounded-md p-5 text-start'>
-              <h1 className='font-bold text-2xl'>Add Balance</h1>
-              <div className='flex gap-2'>
-                <input type="number" onChange={(e)=>setInputAmount(Number(e.target.value))} placeholder='Income Amount' className='rounded-2xl shadow-md p-2' />
-                <button type='submit' onClick={handleWalletBalance} className='bg-orange-400 shadow-md rounded-2xl text-white py-2 px-5'>Add Balance</button>
-                <button className='bg-gray-200 rounded-2xl shadow-md px-5' type='submit' onClick={handleCancel}>Cancel</button>
-              </div>
-            </div>
-          )}
-          <ExpenseCard card={card}/>
-          {/* <div className="shadow-2xl bg-[#9B9B9B] rounded-md w-96 h-64">                
-          </div> */}
-        </div>
+      <div className='rounded-2xl bg-[#8b8b8b] p-20 text-nowrap'>
+        <p className='text-white text-2xl'>Expense:{' '} <span className='text-red-500 font-semibold'>₹{totalExpense}</span></p>
+        <button type='button' onClick={()=>setShowModal('expense')}
+        className="bg-red-300 shadow-md rounded-2xl bg-gradient-to-r from-red-300 via-red-400 to-rose-600 py-[8px] px-5 text-white text-xl mt-[10px]"
+        >+ Add Expense</button>
       </div>
+      <Modal
+      isOpen={showModal === 'expense'}
+      onRequestClose={()=>setShowModal(null)}
+      className="bg-zinc-100 rounded-2xl shadow-lg p-6 w-max mx-auto mt-64 outline-none"
+      overlayClassName="fixed inset-0 bg-white bg-opacity-50 flex justify-center items-start"
+      >
+        <h1 className="text-start text-2xl font-bold">Add Expenses</h1>
+        <div className="flex gap-5 py-5">
+          <input type="text" placeholder='Title' value={title} onChange={(e)=>setTitle(e.target.value)}
+          className="rounded-xl outline-none border p-2 shadow-md" />
+          <input type="Number" placeholder='Price' value={inputAmount} onChange={(e)=>setInputAmount(e.target.value)} 
+          className="rounded-xl outline-none border p-2 shadow-md"/>
+        </div>
+        <div className="flex gap-5 pb-5">
+          <select value={category} onChange={(e)=>setCategory(e.target.value)}
+            className="rounded-xl shadow-md outline-none border p-2 text-gray-400 w-[200px]">
+            <option value="">Select Category</option>
+            <option value="Food">Food</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="sports">Sports</option>
+            <option value="arts">Arts</option>
+          </select>
+          <input type="date" onChange={(e)=>setDate(e.target.value)} 
+          className="rounded-xl shadow-md outline-none border p-2 text-gray-400 w-[200px]"/>
+        </div>
+        <div className="flex gap-5">
+          <button type='submit' onClick={handleClick}
+          className="rounded-2xl shadow-md bg-orange-500 text-white py-2 px-5 w-[200px]"
+          >Add Expense</button>
+          <button type='submit' onClick={()=>setShowModal(null)}
+          className="rounded-2xl shadow-md bg-stone-200 py-2 px-10"
+          >Cancel</button>
+        </div>
+      </Modal>
     </div>
-  );
+  )
 }
