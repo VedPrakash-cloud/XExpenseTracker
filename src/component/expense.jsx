@@ -2,7 +2,7 @@ import {useState} from 'react';
 import Modal from 'react-modal';
 import { nanoid } from 'nanoid';
 
-export default function ExpenseCard({expense, onAddExpense}){
+export default function ExpenseCard({expenses, onAddExpense}){
   const [inputAmount, setInputAmount] = useState('');
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
@@ -27,7 +27,7 @@ export default function ExpenseCard({expense, onAddExpense}){
     setShowModal(null);
   }
 
-  const totalExpense = expense.reduce((sum,item)=> sum + item.amount, 0);
+  const totalExpense = expenses.reduce((sum,item)=> sum + item.amount, 0);
 
 
   return (
@@ -38,7 +38,7 @@ export default function ExpenseCard({expense, onAddExpense}){
             ₹{totalExpense}
           </span>
         </p>
-        <button type='button' onClick={()=>setShowModal('expense')}
+        <button type='button' onClick={()=>setShowModal('expenses')}
         className="mt-4 bg-gradient-to-r from-red-400 via-red-500 to-rose-600
         py-2 px-5 rounded-full text-white font-semibold shadow-md"
         >
@@ -46,7 +46,7 @@ export default function ExpenseCard({expense, onAddExpense}){
         </button>
       </div>
       <Modal
-      isOpen={showModal === 'expense'}
+      isOpen={showModal === 'expenses'}
       onRequestClose={()=>setShowModal(null)}
       className="bg-zinc-100 rounded-2xl shadow-xl p-8 w-[90%] max-w-lg mx-auto outline-none"
       overlayClassName="fixed inset-0 bg-white bg-opacity-40 flex justify-center items-center"
@@ -84,7 +84,7 @@ export default function ExpenseCard({expense, onAddExpense}){
           className="flex-1 border border-gray-300 rounded-xl px-4 py-2 outline-none">
             <option value="">Select Category</option>
             <option value="food">Food</option>
-            <option value="entertainment">Entertainment</option>
+            <option value="category">Entertainment</option>
             <option value="travel">Travel</option>
           </select>
 

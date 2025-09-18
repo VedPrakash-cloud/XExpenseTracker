@@ -18,8 +18,8 @@ function App() {
     const savedBalance = localStorage.getItem("balance");
     return savedBalance ? Number(savedBalance) : 5000;
   });
-  const [expense, setExpense] = useState(() => {
-    const savedExpense = localStorage.getItem("expense");
+  const [expenses, setExpenses] = useState(() => {
+    const savedExpense = localStorage.getItem("expenses");
     return savedExpense ? JSON.parse(savedExpense) : [];
   });
 
@@ -28,25 +28,25 @@ function App() {
   }, [balance]);
 
   useEffect(() => {
-    localStorage.setItem("expense", JSON.stringify(expense));
-  }, [expense]);
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+  }, [expenses]);
 
   const handleAddFunds = (amount) => {
     setBalance((prev) => prev + amount);
   };
 
-  const handleExpense = (expense) => {
-    if (expense.amount > balance) {
+  const handleExpense = (expenses) => {
+    if (expenses.amount > balance) {
       enqueueSnackbar("Please add more funds", { variant: "error" });
       return;
     }
 
-    setExpense((prev) => [...prev, { ...expense, id: Date.now() }]);
-    setBalance((prev) => prev - expense.amount);
+    setExpenses((prev) => [...prev, { ...expenses, id: Date.now() }]);
+    setBalance((prev) => prev - expenses.amount);
   };
 
   const handleEditExpense = (updatedExpense) => {
-    setExpense((prev) => {
+    setExpenses((prev) => {
       return prev.map((item) => {
         if (item.id === updatedExpense.id) {
           const oldAmount = item.amount;
@@ -66,7 +66,7 @@ function App() {
   }
 
   const handleDeleteExpense = (id) => {
-    setExpense((prev) => {
+    setExpenses((prev) => {
       const deleted = prev.find((item) => item.id === id);
       if (deleted) {
         setBalance((prevBal) => prevBal + deleted.amount);
@@ -76,7 +76,7 @@ function App() {
   }
   // Bar chart start here //
 
-  const categoryTools = expense.reduce((acc, item) => {
+  const categoryTools = expenses.reduce((acc, item) => {
     acc[item.category] = (acc[item.category] || 0) + item.amount;
     return acc;
   }, {});
@@ -97,12 +97,12 @@ function App() {
         <main className="p-5 space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-[#777777] p-5 rounded-xl">
             <AddFunds balance={balance} onAddFunds={handleAddFunds}/>
-            <Expense expense={expense} onAddExpense={handleExpense} />
-            <Pie expenseList={expense} />
+            <Expense expenses={expenses} onAddExpense={handleExpense} />
+            <Pie expenseList={expenses} />
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
             <div className="lg:col-span-3">
-              <Lists expense={expense} onDeleteExpense={handleDeleteExpense} onEditExpense={setEditingExpense} />
+              <Lists expenses={expenses} onDeleteExpense={handleDeleteExpense} onEditExpense={setEditingExpense} />
             </div>
             <div className="lg:col-span-2">
               <Bar expenseList={BarData} />
@@ -112,7 +112,7 @@ function App() {
       </div>
       {editingExpense &&
         <EditExpense
-          expense={editingExpense}
+          expenses={editingExpense}
           onEditExpense={handleEditExpense}
           onClose={() => setEditingExpense(false)}
         />

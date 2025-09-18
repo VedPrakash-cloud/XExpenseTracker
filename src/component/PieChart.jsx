@@ -9,8 +9,8 @@ import {
 export default function PieData({expenseList}){
     const COLORS = ["#A000FF", "#FF9304", "#FDE006"];
 
-    const categoryTotals = expenseList.reduce((acc,expense)=>{
-        acc[expense.category]= (acc[expense.category] || 0)+ expense.amount;
+    const categoryTotals = expenseList.reduce((acc,expenses)=>{
+        acc[expenses.category]= (acc[expenses.category] || 0)+ expenses.amount;
         return acc;
     },{});
 

@@ -6,13 +6,13 @@ import { FaMasksTheater } from "react-icons/fa6";
 import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
 import {useState} from 'react';
 
-export default function ListPagination({ expense, onDeleteExpense, onEditExpense }) {
+export default function ListPagination({ expenses, onDeleteExpense, onEditExpense }) {
 
   const [currentPage, setCurretPage] = useState(1);
   const [itemsPerPage] = useState(3);
-  const totalPages = Math.ceil(expense.length/itemsPerPage);
+  const totalPages = Math.ceil(expenses.length/itemsPerPage);
   const startIndex = (currentPage-1) *itemsPerPage;
-  const currentItems = expense.slice(startIndex, startIndex+itemsPerPage)
+  const currentItems = expenses.slice(startIndex, startIndex+itemsPerPage)
 
   const CategoryIcons = {
     Food: <PiPizza size={20} />,
@@ -28,7 +28,7 @@ export default function ListPagination({ expense, onDeleteExpense, onEditExpense
         Recent Transactions
       </h1>
       <div className="bg-white rounded-xl p-5">
-        {expense.length === 0 ? (
+        {expenses.length === 0 ? (
           <p className="text-start">No transactions!</p>
         ) : (
           <div className="bg-white rounded-xl m-2">
@@ -65,7 +65,7 @@ export default function ListPagination({ expense, onDeleteExpense, onEditExpense
             ))}
           </div>
         )}
-        {expense.length > itemsPerPage && 
+        {expenses.length > itemsPerPage && 
       <div className="flex items-center justify-center mt-4">
           <button
           onClick={()=>setCurretPage(currentPage-1)}
