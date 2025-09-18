@@ -24,9 +24,9 @@ export default function ListPagination({ expenses, onDeleteExpense, onEditExpens
 
   return (
     <div className="mb-5">
-      <h1 className="text-white font-bold text-2xl mb-5">
+      <h2 className="text-white font-bold text-2xl mb-5">
         Recent Transactions
-      </h1>
+      </h2>
       <div className="bg-white rounded-xl p-5">
         {expenses.length === 0 ? (
           <p className="text-start">No transactions!</p>
