@@ -59,6 +59,7 @@ export default function ExpenseCard({expense, onAddExpense}){
           placeholder='Title'
           value={title}
           onChange={(e)=>setTitle(e.target.value)}
+          required
           className="flex-1 border border-gray-300 rounded-xl px-4 py-2 outline-none"
           />
 
@@ -67,6 +68,7 @@ export default function ExpenseCard({expense, onAddExpense}){
           placeholder='Price' 
           value={inputAmount} 
           onChange={(e)=>setInputAmount(e.target.value)} 
+          required
           className="flex-1 border border-gray-300 rounded-xl px-4 py-2 outline-none"
           />
         </div>
@@ -75,6 +77,7 @@ export default function ExpenseCard({expense, onAddExpense}){
           <select 
           value={category} 
           onChange={(e)=>setCategory(e.target.value)}
+          required
           className="flex-1 border border-gray-300 rounded-xl px-4 py-2 outline-none">
             <option value="">Select Category</option>
             <option value="Food">Food</option>
@@ -85,7 +88,8 @@ export default function ExpenseCard({expense, onAddExpense}){
 
           <input 
           type="date" 
-          onChange={(e)=>setDate(e.target.value)} 
+          onChange={(e)=>setDate(e.target.value)}
+          required 
           className="flex-1 border border-gray-300 rounded-xl px-4 py-2 outline-none"/>
         </div>
 
