@@ -13,8 +13,8 @@ import Modal from 'react-modal';
 Modal.setAppElement('#root');
 
 function App() {
-    const [editingExpense, setEditingExpense] = useState(false);
-    const [balance, setBalance] = useState(() => {
+  const [editingExpense, setEditingExpense] = useState(false);
+  const [balance, setBalance] = useState(() => {
     const savedBalance = localStorage.getItem("balance");
     return savedBalance ? Number(savedBalance) : 5000;
   });
@@ -45,19 +45,19 @@ function App() {
     setBalance((prev) => prev - expense.amount);
   };
 
-  const handleEditExpense= (updatedExpense)=>{
-    setExpense((prev)=>{
-      return prev.map((item)=>{
-        if(item.id === updatedExpense.id){
+  const handleEditExpense = (updatedExpense) => {
+    setExpense((prev) => {
+      return prev.map((item) => {
+        if (item.id === updatedExpense.id) {
           const oldAmount = item.amount;
           const newAmount = updatedExpense.amount;
           const diffAmount = newAmount - oldAmount;
 
-          if(diffAmount > balance){
-            enqueueSnackbar("Price should be less than the wallet balance", {variant:"error"});
+          if (diffAmount > balance) {
+            enqueueSnackbar("Price should be less than the wallet balance", { variant: "error" });
             return item;
           }
-          setBalance((prevBal)=> prevBal-diffAmount);
+          setBalance((prevBal) => prevBal - diffAmount);
           return updatedExpense;
         }
         return item;
@@ -65,23 +65,23 @@ function App() {
     })
   }
 
-  const handleDeleteExpense = (id)=>{
-    setExpense((prev)=>{
+  const handleDeleteExpense = (id) => {
+    setExpense((prev) => {
       const deleted = prev.find((item) => item.id === id);
-      if(deleted){
-        setBalance((prevBal)=>prevBal + deleted.amount);
+      if (deleted) {
+        setBalance((prevBal) => prevBal + deleted.amount);
       }
-      return prev.filter((item)=>item.id !== id);
+      return prev.filter((item) => item.id !== id);
     })
   }
   // Bar chart start here //
 
-  const categoryTools = expense.reduce((acc,item)=>{
+  const categoryTools = expense.reduce((acc, item) => {
     acc[item.category] = (acc[item.category] || 0) + item.amount;
     return acc;
   }, {});
 
-  const BarData = Object.entries(categoryTools).map(([name, value])=>({
+  const BarData = Object.entries(categoryTools).map(([name, value]) => ({
     name, value
   }))
 
@@ -90,32 +90,36 @@ function App() {
 
   return (
     <SnackbarProvider autoHideDuration={3000}>
-      <div className="App bg-zinc-700 h-full p-5 flex flex-col">
-        <h1 className="font-bold text-2xl text-white text-start pb-5">
-          Expense Tracker
-        </h1>
-        <div className="flex gap-5 p-10 bg-[#6B6B6B] rounded-2xl mb-10">
-          <AddFunds balance={balance} onAddFunds={handleAddFunds} />
-          <Expense expense={expense} onAddExpense={handleExpense} />
-          <Pie  expenseList={expense}/>
-        </div>
-        <div className="flex gap-5">
-          <div className="w-3/5">
-            <Lists expense={expense} onDeleteExpense={handleDeleteExpense} onEditExpense={setEditingExpense}/>
+      <div className="bg-zinc-800 min-h-screen">
+        <header className="p-5 sticky top-0 bg-zinc-900 shadow-md z-10">
+          <h1 className="font-bold text-2xl text-white">
+            Expense Tracker
+          </h1>
+        </header>
+        <main className="p-5 space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <AddFunds balance={balance} onAddFunds={handleAddFunds}/>
+            <Expense expense={expense} onAddExpense={handleExpense} />
+            <Pie expenseList={expense} />
           </div>
-          <div className="2/5">
-            <Bar expenseList={BarData}/>
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
+            <div className="lg:col-span-3">
+              <Lists expense={expense} onDeleteExpense={handleDeleteExpense} onEditExpense={setEditingExpense} />
+            </div>
+            <div className="lg:col-span-2">
+              <Bar expenseList={BarData} />
+            </div>
           </div>
-        </div>
+        </main>
       </div>
       {editingExpense &&
-      <EditExpense 
-      expense={editingExpense}
-      onEditExpense={handleEditExpense}
-      onClose={()=>setEditingExpense(false)}
-      />
+        <EditExpense
+          expense={editingExpense}
+          onEditExpense={handleEditExpense}
+          onClose={() => setEditingExpense(false)}
+        />
       }
-    </SnackbarProvider>
+    </SnackbarProvider >
   );
 }
 

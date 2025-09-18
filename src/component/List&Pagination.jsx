@@ -25,7 +25,7 @@ export default function ListPagination({ expense, onDeleteExpense, onEditExpense
 
 
   return (
-    <div>
+    <div className="mb-5">
       <h1 className="text-white font-bold text-2xl mb-5 text-start">
         Recent Transactions
       </h1>
@@ -37,7 +37,7 @@ export default function ListPagination({ expense, onDeleteExpense, onEditExpense
             {currentItems.map((data) => (
               <div
                 key={data.id}
-                className="border-b-2 flex justify-between items-center py-2"
+                className="border-b-2 flex justify-between items-center py-3"
               >
                 <div className="flex items-center gap-3">
                   <div className="flex items-center justify-center bg-gray-300 text-gray-700 rounded-3xl p-2.5 ">
@@ -67,8 +67,8 @@ export default function ListPagination({ expense, onDeleteExpense, onEditExpense
             ))}
           </div>
         )}
-        {expense.length > 3 && 
-      <div className="flex items-center justify-center">
+        {expense.length > itemsPerPage && 
+      <div className="flex items-center justify-center mt-4">
           <button
           onClick={()=>setCurretPage(currentPage-1)}
           disabled={currentPage === 1}

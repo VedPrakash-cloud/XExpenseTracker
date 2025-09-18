@@ -42,24 +42,25 @@ export default function PieData({expenseList}){
 
     if(!expenseList?.length){
         return(
-            <div className="w-full flex items-center justify-center">
+            <div className="w-full flex items-center justify-center h-[250px] font-semibold">
                 No Transaction!
             </div>
         )
     }
     
     return(
-        <div className="w-full h-[250px]">
-            <ResponsiveContainer width="100%" height={250}>
-                <PieChart width={400} height={400}>
+        <div className="w-full h-[300px] sm:h-[350px] md:h-[400px]">
+            <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
                     <Pie
                     data={chartData}
                     cx="50%"
                     cy="50%"
                     labelLine={false}
-                    outerRadius={80}
+                    outerRadius="70%"
                     dataKey='value'
-                    label={renderLabel}>
+                    label={renderLabel}
+                    >
                         {chartData.map((_, index)=>(
                             <Cell 
                             key={`cell-${index}`}
