@@ -1,8 +1,7 @@
 import {useState} from 'react';
 import Modal from 'react-modal';
+import { nanoid } from 'nanoid';
 
-
-Modal.setAppElement('#root');
 export default function ExpenseCard({expense, onAddExpense}){
   const [inputAmount, setInputAmount] = useState('');
   const [title, setTitle] = useState('');
@@ -15,6 +14,7 @@ export default function ExpenseCard({expense, onAddExpense}){
     if(!inputAmount || !title || !category || !date) return;
 
     onAddExpense({
+      id:nanoid(),
       title,
       amount: Number(inputAmount),
       category,

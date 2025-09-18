@@ -3,12 +3,18 @@ import AddFunds from "./component/addFunds";
 import Bar from "./component/barChart";
 import Lists from "./component/List&Pagination";
 import Pie from "./component/PieChart";
+import EditExpense from "./component/Modal";
 import { useState, useEffect } from "react";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
-import "./App.css";
+import Modal from 'react-modal';
+
+
+
+Modal.setAppElement('#root');
 
 function App() {
-  const [balance, setBalance] = useState(() => {
+    const [editingExpense, setEditingExpense] = useState(false);
+    const [balance, setBalance] = useState(() => {
     const savedBalance = localStorage.getItem("balance");
     return savedBalance ? Number(savedBalance) : 5000;
   });
@@ -39,6 +45,49 @@ function App() {
     setBalance((prev) => prev - expense.amount);
   };
 
+  const handleEditExpense= (updatedExpense)=>{
+    setExpense((prev)=>{
+      return prev.map((item)=>{
+        if(item.id === updatedExpense.id){
+          const oldAmount = item.amount;
+          const newAmount = updatedExpense.amount;
+          const diffAmount = newAmount - oldAmount;
+
+          if(diffAmount > balance){
+            enqueueSnackbar("Price should be less than the wallet balance", {variant:"error"});
+            return item;
+          }
+          setBalance((prevBal)=> prevBal-diffAmount);
+          return updatedExpense;
+        }
+        return item;
+      })
+    })
+  }
+
+  const handleDeleteExpense = (id)=>{
+    setExpense((prev)=>{
+      const deleted = prev.find((item) => item.id === id);
+      if(deleted){
+        setBalance((prevBal)=>prevBal + deleted.amount);
+      }
+      return prev.filter((item)=>item.id !== id);
+    })
+  }
+  // Bar chart start here //
+
+  const categoryTools = expense.reduce((acc,item)=>{
+    acc[item.category] = (acc[item.category] || 0) + item.amount;
+    return acc;
+  }, {});
+
+  const BarData = Object.entries(categoryTools).map(([name, value])=>({
+    name, value
+  }))
+
+
+
+
   return (
     <SnackbarProvider autoHideDuration={3000}>
       <div className="App bg-zinc-700 h-full p-5 flex flex-col">
@@ -48,17 +97,24 @@ function App() {
         <div className="flex gap-5 p-10 bg-[#6B6B6B] rounded-2xl mb-10">
           <AddFunds balance={balance} onAddFunds={handleAddFunds} />
           <Expense expense={expense} onAddExpense={handleExpense} />
-          <Pie />
+          <Pie  expenseList={expense}/>
         </div>
         <div className="flex gap-5">
-          <div className="w-3/4">
-            <Lists expense={expense} onAddExpense={handleExpense}/>
+          <div className="w-3/5">
+            <Lists expense={expense} onDeleteExpense={handleDeleteExpense} onEditExpense={setEditingExpense}/>
           </div>
-          <div className="1/4">
-            <Bar />
+          <div className="2/5">
+            <Bar expenseList={BarData}/>
           </div>
         </div>
       </div>
+      {editingExpense &&
+      <EditExpense 
+      expense={editingExpense}
+      onEditExpense={handleEditExpense}
+      onClose={()=>setEditingExpense(false)}
+      />
+      }
     </SnackbarProvider>
   );
 }

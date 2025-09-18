@@ -1,7 +1,6 @@
 import {useState} from 'react';
 import Modal from 'react-modal'
 
-Modal.setAppElement('#root');
 export default function AddFunds({balance, onAddFunds}){
     const [amount, setAmount] = useState('')
     const [showModal, setShowModal] = useState(null);
