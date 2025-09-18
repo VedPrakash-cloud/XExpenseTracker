@@ -19,7 +19,7 @@ export default function ListPagination({ expense, onDeleteExpense, onEditExpense
     Food: <PiPizza size={20} />,
     entertainment: <FaMasksTheater size={20} />,
     arts: <DiAppstore size={20} />,
-    sports: <SiAmazongames size={20} />,
+    travel: <SiAmazongames size={20} />,
   };
 
 

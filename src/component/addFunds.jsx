@@ -41,7 +41,8 @@ export default function AddFunds({ balance, onAddFunds }) {
         <form onSubmit={handleSubmit} className="flex">
           <div className="flex flex-col md:flex-row gap-4 w-full">
             <input
-              type="Number"
+              type="number"
+              name="amount"
               placeholder=" Income Amount"
               value={amount}
               onChange={(e) => setAmount(Number(e.target.value))}

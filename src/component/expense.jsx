@@ -56,6 +56,7 @@ export default function ExpenseCard({expense, onAddExpense}){
         <div className="flex flex-col md:flex-row gap-4">
           <input
           type="text"
+          name='title'
           placeholder='Title'
           value={title}
           onChange={(e)=>setTitle(e.target.value)}
@@ -64,7 +65,8 @@ export default function ExpenseCard({expense, onAddExpense}){
           />
 
           <input
-          type="Number" 
+          type="number" 
+          name='amount'
           placeholder='Price' 
           value={inputAmount} 
           onChange={(e)=>setInputAmount(e.target.value)} 
@@ -76,18 +78,20 @@ export default function ExpenseCard({expense, onAddExpense}){
         <div className="flex flex-col md:flex-row gap-4">
           <select 
           value={category} 
+          name='category'
           onChange={(e)=>setCategory(e.target.value)}
           required
           className="flex-1 border border-gray-300 rounded-xl px-4 py-2 outline-none">
             <option value="">Select Category</option>
             <option value="food">Food</option>
             <option value="entertainment">Entertainment</option>
-            <option value="travel">travel</option>
+            <option value="travel">Travel</option>
             <option value="arts">Arts</option>
           </select>
 
           <input 
           type="date" 
+          name='date'
           onChange={(e)=>setDate(e.target.value)}
           required 
           className="flex-1 border border-gray-300 rounded-xl px-4 py-2 outline-none"/>
