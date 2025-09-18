@@ -44,13 +44,15 @@ export default function EditExpense({expense, onEditExpense, onClose}) {
         <div className="flex gap-5 py-5">
           <input
             type="text"
+            name="title"
             placeholder="Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className="rounded-xl outline-none border p-2 shadow-md"
           />
           <input
-            type="Number"
+            type="number"
+            name="price"
             placeholder="Price"
             value={inputAmount}
             onChange={(e) => setInputAmount(e.target.value)}
@@ -59,18 +61,19 @@ export default function EditExpense({expense, onEditExpense, onClose}) {
         </div>
         <div className="flex gap-5 pb-5">
           <select
+            name="category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             className="rounded-xl shadow-md outline-none border p-2 text-gray-400 w-[200px]"
           >
             <option value="">Select Category</option>
-            <option value="Food">Food</option>
+            <option value="food">Food</option>
             <option value="entertainment">Entertainment</option>
-            <option value="sports">Sports</option>
-            <option value="arts">Arts</option>
+            <option value="travel">Travel</option>
           </select>
           <input
             type="date"
+            name="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
             className="rounded-xl shadow-md outline-none border p-2 text-gray-400 w-[200px]"

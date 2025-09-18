@@ -18,7 +18,7 @@ export default function BarData({expenseList}){
                     </ResponsiveContainer>
                 ):(
                     <div className='bg-white w-full h-[200px] sm:h-[250px] md:h-[300px] rounded-xl flex items-center justify-center'>
-                        No Transactions!
+                        No transactions!
                     </div>
                 )}
             </div>

@@ -90,14 +90,12 @@ function App() {
 
   return (
     <SnackbarProvider autoHideDuration={3000}>
-      <div className="bg-zinc-800 min-h-screen text-center md:text-start">
-        <header className="p-5 sticky top-0 bg-zinc-900 shadow-md z-10">
-          <h1 className="font-bold text-2xl text-white">
+      <div className="bg-[#3B3B3B] min-h-screen text-center md:text-start">
+          <h1 className="font-bold text-2xl text-white pl-5">
             Expense Tracker
           </h1>
-        </header>
         <main className="p-5 space-y-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-[#777777] p-5 rounded-xl">
             <AddFunds balance={balance} onAddFunds={handleAddFunds}/>
             <Expense expense={expense} onAddExpense={handleExpense} />
             <Pie expenseList={expense} />

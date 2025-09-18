@@ -32,7 +32,7 @@ export default function ExpenseCard({expense, onAddExpense}){
 
   return (
     <div>
-      <div className='rounded-2xl h-full bg-zinc-700 p-6 shadow-lg flex flex-col items-center justify-center text-center'>
+      <div className='rounded-2xl h-full bg-[#3B3B3B] p-6 shadow-lg flex flex-col items-center justify-center text-center'>
         <p className='text-white text-lg md:text-xl font-medium'>Expense:{' '}
           <span className='text-red-400 text-2xl md:text-3xl font-bold mt-1'>
             ₹{totalExpense}
@@ -66,7 +66,7 @@ export default function ExpenseCard({expense, onAddExpense}){
 
           <input
           type="number" 
-          name='amount'
+          name='price'
           placeholder='Price' 
           value={inputAmount} 
           onChange={(e)=>setInputAmount(e.target.value)} 
@@ -86,7 +86,6 @@ export default function ExpenseCard({expense, onAddExpense}){
             <option value="food">Food</option>
             <option value="entertainment">Entertainment</option>
             <option value="travel">Travel</option>
-            <option value="arts">Arts</option>
           </select>
 
           <input 
@@ -100,7 +99,7 @@ export default function ExpenseCard({expense, onAddExpense}){
         <div className="flex gap-3">
           <button 
           type='submit'
-          className="flex-1 bg-orange-500 text-white rounded-xl py-2 font-semibold shadow-md"
+          className="flex-1 bg-yellow-500 text-white rounded-xl py-2 font-semibold shadow-md"
           >
             Add Expense
           </button>

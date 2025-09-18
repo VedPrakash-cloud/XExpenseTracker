@@ -7,7 +7,7 @@ import {
 } from "recharts";
 
 export default function PieData({expenseList}){
-    const COLORS = ["#A000FF", "#FF9304", "#FDE006", "#0088FE"];
+    const COLORS = ["#A000FF", "#FF9304", "#FDE006"];
 
     const categoryTotals = expenseList.reduce((acc,expense)=>{
         acc[expense.category]= (acc[expense.category] || 0)+ expense.amount;
@@ -42,8 +42,8 @@ export default function PieData({expenseList}){
 
     if(!expenseList?.length){
         return(
-            <div className="w-full flex items-center justify-center h-[250px] font-semibold">
-                No Transaction!
+            <div className="w-full flex items-center justify-center h-[250px]">
+                No transactions!
             </div>
         )
     }
