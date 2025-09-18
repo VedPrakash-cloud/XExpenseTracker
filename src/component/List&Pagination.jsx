@@ -26,7 +26,7 @@ export default function ListPagination({ expense, onDeleteExpense, onEditExpense
 
   return (
     <div className="mb-5">
-      <h1 className="text-white font-bold text-2xl mb-5 text-start">
+      <h1 className="text-white font-bold text-2xl mb-5">
         Recent Transactions
       </h1>
       <div className="bg-white rounded-xl p-5">

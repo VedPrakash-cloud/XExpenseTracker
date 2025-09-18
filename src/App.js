@@ -90,7 +90,7 @@ function App() {
 
   return (
     <SnackbarProvider autoHideDuration={3000}>
-      <div className="bg-zinc-800 min-h-screen">
+      <div className="bg-zinc-800 min-h-screen text-center md:text-start">
         <header className="p-5 sticky top-0 bg-zinc-900 shadow-md z-10">
           <h1 className="font-bold text-2xl text-white">
             Expense Tracker
