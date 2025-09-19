@@ -4,16 +4,17 @@ export default function BarData({expenseList}){
     return (
         <div>
             <h2 className='text-2xl sm:text-2xl md:text-3xl font-bold text-white mb-5'>Top Expenses</h2>
-            <div className='border bg-white rounded-xl w-full'>
+            <div className='bg-white rounded-xl w-full h-[330px] p-2 grid items-center'>
                 {expenseList?.length ?(
                     <ResponsiveContainer width="100%" height={250}>
                         <BarChart
                         data={expenseList}
                         layout='vertical'
+                        className='overflow-hidden'
                         >
                             <XAxis type='number' axisLine={false} display="none" />
                             <YAxis type='category' width={100} dataKey="name" axisLine={false} />
-                            <Bar dataKey="value" fill="#0088FE" barSize={25}/>
+                            <Bar dataKey="value" fill="#0088FE" barSize={20}/>
                         </BarChart>
                     </ResponsiveContainer>
                 ):(
