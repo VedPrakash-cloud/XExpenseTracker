@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Modal from "react-modal";
 
-export default function EditExpense({expense, onEditExpense, onClose}) {
+export default function EditExpense({expenses, onEditExpense, onClose}) {
 
   const [inputAmount, setInputAmount] = useState("");
   const [title, setTitle] = useState("");
@@ -9,20 +9,20 @@ export default function EditExpense({expense, onEditExpense, onClose}) {
   const [date, setDate] = useState("");
 
   useEffect(()=>{
-    if(expense){
-      setTitle(expense.title ||'');
-      setInputAmount(expense.amount || '');
-      setCategory(expense.category || '');
-      setDate(expense.date || '');
+    if(expenses){
+      setTitle(expenses.title ||'');
+      setInputAmount(expenses.amount || '');
+      setCategory(expenses.category || '');
+      setDate(expenses.date || '');
     }
-  },[expense]);
+  },[expenses]);
   
   const handleClick = (e)=>{
     e.preventDefault()
     if(!inputAmount || !title || !category || !date) return;
 
     onEditExpense({
-      ...expense,
+      ...expenses,
       title,
       amount: Number(inputAmount),
       category,
@@ -34,7 +34,7 @@ export default function EditExpense({expense, onEditExpense, onClose}) {
   return (
     <div>
       <Modal
-        isOpen={!!expense}
+        isOpen={!!expenses}
         onRequestClose={onClose}
         ariaHideApp={false}
         className="bg-zinc-100 rounded-2xl shadow-lg p-6 w-max mx-auto mt-64 outline-none"
@@ -70,6 +70,8 @@ export default function EditExpense({expense, onEditExpense, onClose}) {
             <option value="food">Food</option>
             <option value="entertainment">Entertainment</option>
             <option value="travel">Travel</option>
+            <option value="sport">Sport</option>
+            <option value="arts">Art</option>
           </select>
           <input
             type="date"

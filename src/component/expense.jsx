@@ -84,8 +84,10 @@ export default function ExpenseCard({expenses, onAddExpense}){
           className="flex-1 border border-gray-300 rounded-xl px-4 py-2 outline-none">
             <option value="">Select Category</option>
             <option value="food">Food</option>
-            <option value="category">Entertainment</option>
+            <option value="entertainment">Entertainment</option>
             <option value="travel">Travel</option>
+            <option value="sport">Sport</option>
+            <option value="arts">Art</option>
           </select>
 
           <input 

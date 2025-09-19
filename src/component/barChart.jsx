@@ -12,7 +12,7 @@ export default function BarData({expenseList}){
                         layout='vertical'
                         >
                             <XAxis type='number' axisLine={false} display="none" />
-                            <YAxis type='category' width="100%" dataKey="name" axisLine={false} />
+                            <YAxis type='category' width={100} dataKey="name" axisLine={false} />
                             <Bar dataKey="value" fill="#0088FE" barSize={25}/>
                         </BarChart>
                     </ResponsiveContainer>

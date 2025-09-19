@@ -2,7 +2,9 @@ import { PiPizza } from "react-icons/pi";
 import { SiAmazongames } from "react-icons/si";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { IoMdCloseCircleOutline } from "react-icons/io";
+import { RiFlightTakeoffFill } from "react-icons/ri";
 import { FaMasksTheater } from "react-icons/fa6";
+import { SiAppstore } from "react-icons/si";
 import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
 import {useState} from 'react';
 
@@ -15,9 +17,11 @@ export default function ListPagination({ expenses, onDeleteExpense, onEditExpens
   const currentItems = expenses.slice(startIndex, startIndex+itemsPerPage)
 
   const CategoryIcons = {
-    Food: <PiPizza size={20} />,
+    food: <PiPizza size={20} />,
     entertainment: <FaMasksTheater size={20} />,
-    travel: <SiAmazongames size={20} />,
+    sport: <SiAmazongames size={20} />,
+    arts: <SiAppstore />,
+    travel: <RiFlightTakeoffFill size={20}/>,
   };
 
 
